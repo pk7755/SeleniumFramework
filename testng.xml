@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Sample Test Suite">
+    <listeners>
+        <listener class-name="com.epam.reportportal.testng.listeners.ReportPortalTestNGListener"/>
+        <listener class-name="main.java.org.example.listener.VideoTestListener"/>
+        <listener class-name="main.java.org.example.utils.SuiteListener"/>
+    </listeners>
+    <test name="Test Automation">
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="env" value="test"/>
+        <classes>
+            <class name="test.java.login.LoginTest"/>
+        </classes>
+    </test>
+</suite>
