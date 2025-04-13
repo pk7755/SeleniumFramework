@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Sample Test Suite">
+<suite name="MyTestSuite">
     <listeners>
-        <listener class-name="com.epam.reportportal.testng.listeners.ReportPortalTestNGListener"/>
-        <listener class-name="main.java.org.example.listener.VideoTestListener"/>
-        <listener class-name="main.java.org.example.utils.SuiteListener"/>
+        <listener class-name="listener.CustomReportPortalListener"/>
+        <listener class-name="listener.VideoTestListener"/>
+        <listener class-name="utils.SuiteListener"/>
     </listeners>
-    <test name="Test Automation">
+    <test name="MethodSpecificTests">
         <parameter name="browserName" value="chrome"/>
         <parameter name="env" value="test"/>
         <classes>
-            <class name="test.java.login.LoginTest"/>
+            <class name="automatedTest.login.LoginTest">
+            <methods>
+                <include name="loginTest"/>
+                <include name="dashboardTest"/>
+            </methods>
+            </class>
         </classes>
     </test>
 </suite>

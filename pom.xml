@@ -12,6 +12,7 @@
         <maven.compiler.source>23</maven.compiler.source>
         <maven.compiler.target>23</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <surefire.suiteXmlFiles>testng.xml</surefire.suiteXmlFiles>
     </properties>
 
     <profiles>
@@ -36,7 +37,6 @@
     </profiles>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -46,19 +46,38 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>3.0.0</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <systemPropertiesFiles>
-                            testng.xml
-                        </systemPropertiesFiles>
+                        <suiteXmlFile>${surefire.suiteXmlFiles}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
     </build>
     <dependencies>
         <!-- ReportPortal TestNG Agent -->
@@ -75,6 +94,26 @@
             <artifactId>agent-java-testng</artifactId>
             <version>5.4.6</version>
         </dependency>
+
+            <!-- SLF4J API for logging -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>2.0.0-alpha1</version> <!-- Or latest compatible version -->
+            </dependency>
+
+            <!-- SLF4J Logback binding for ReportPortal -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.11</version> <!-- Or latest compatible version -->
+            </dependency>
+
+            <dependency>
+                <groupId>com.epam.reportportal</groupId>
+                <artifactId>logger-java-logback</artifactId>
+                 <version>5.1.6</version> <!-- This is the latest version as of now -->
+            </dependency>
 
 
         <!-- https://mvnrepository.com/artifact/com.epam.reportportal/logger-java-log4j -->
@@ -99,6 +138,7 @@
             <artifactId>selenium-java</artifactId>
             <version>4.25.0</version>
         </dependency>
+
 
         <dependency>
             <groupId>com.aventstack</groupId>
