@@ -14,11 +14,11 @@ pipeline {
 
         stage('Run Custom Selenium Test') {
             steps {
-                sh '''
-                    mvn clean test \
-                        -Denv=test \
-                        -Dexec.mainClass=CustomTestRunner \
-                        -DtestClass=automatedTest.login.LoginTest \
+                bat '''
+                    mvn clean test ^
+                        -Denv=test ^
+                        -Dexec.mainClass=CustomTestRunner ^
+                        -DtestClass=automatedTest.login.LoginTest ^
                         -DtestMethod=loginTest
                 '''
             }
