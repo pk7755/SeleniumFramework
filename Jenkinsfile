@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://your-git-repo-url.git'
+                git 'https://github.com/pk7755/SeleniumFramework.git'
             }
         }
 
