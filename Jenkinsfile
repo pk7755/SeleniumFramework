@@ -1,26 +1,33 @@
 pipeline {
     agent any
 
-    environment {
-        CHROME_DRIVER_PATH = "/usr/local/bin/chromedriver"
+    parameters {
+        choice(
+                    name: 'ENV',
+                    choices: ['test', 'stage', 'production'],
+                    description: 'Select the environment to run tests in (default: test)'
+                )
+        string(name: 'EXEC_MAIN_CLASS', defaultValue: 'CustomTestRunner', description: 'Main class to execute')
+        string(name: 'TEST_CLASS', defaultValue: 'automatedTest.login.LoginTest', description: 'Test class to run')
+        string(name: 'TEST_METHOD', defaultValue: 'loginTest', description: 'Test method to run')
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/pk7755/SeleniumFramework.git'
+                git 'https://your-git-repo-url.git'
             }
         }
 
         stage('Run Custom Selenium Test') {
             steps {
-                bat '''
+                bat """
                     mvn clean test ^
-                        -Denv=test ^
-                        -Dexec.mainClass=CustomTestRunner ^
-                        -DtestClass=automatedTest.login.LoginTest ^
-                        -DtestMethod=loginTest
-                '''
+                        -Denv=%ENV% ^
+                        -Dexec.mainClass=%EXEC_MAIN_CLASS% ^
+                        -DtestClass=%TEST_CLASS% ^
+                        -DtestMethod=%TEST_METHOD%
+                """
             }
         }
 
